@@ -94,8 +94,7 @@ import DeployWorkerProjectLayoutPage from "../components/cb_components/DeployWor
 import SingleTicketsPage from "../components/cb_components/TicketsPage/SingleTicketsPage";
 import TicketProjectLayoutPage from "../components/cb_components/TicketsPage/TicketProjectLayoutPage";
 
-import SingleTicketsPage from "../components/TicketsPage/SingleTicketsPage";
-import TicketProjectLayoutPage from "../components/TicketsPage/TicketProjectLayoutPage";
+
 import SingleTestetPage from "../components/TestetPage/SingleTestetPage";
 import TestetProjectLayoutPage from "../components/TestetPage/TestetProjectLayoutPage";
 // ~cb-add-import~

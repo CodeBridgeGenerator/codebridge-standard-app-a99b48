@@ -54,7 +54,6 @@ import UserLoginPage from "../cb_components/UserLoginPage/UserLoginPage1";
 import UserChangePasswordPage from "../cb_components/UserChangePasswordPage/UserChangePasswordPage";
 import TicketsPage from "../cb_components/TicketsPage/TicketsPage";
 
-import TicketsPage from "../TicketsPage/TicketsPage";
 import TestetPage from "../TestetPage/TestetPage";
 // ~cb-add-import~
 

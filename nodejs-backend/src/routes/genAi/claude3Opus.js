@@ -1,11 +1,10 @@
-const API_URL =
-  "https://cytcmhlrg2hpzfjymbszuann3m0lmlvn.lambda-url.us-west-2.on.aws/";
+const LLM_API_URL = process.env.LLM_CLASS3;
 const axios = require("axios");
 
 async function claude3sonnet(request, response) {
   const requestOptions = {
     method: "post",
-    url: API_URL,
+    url: LLM_API_URL,
     data: request.body,
     headers: {
       "Content-Type": "application/json",

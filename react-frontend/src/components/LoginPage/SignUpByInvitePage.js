@@ -46,9 +46,9 @@ const SignUpByInvitePage = (props) => {
       setSelectedEmails(data.data);
     } else {
       props.alert({
-        title: "Email invites not found",
-        type: "error",
-        message: "Server error, please contact admin.",
+        title: "No Email invites found",
+        type: "warn",
+        message: "Server warning, please contact admin.",
       });
     }
   };

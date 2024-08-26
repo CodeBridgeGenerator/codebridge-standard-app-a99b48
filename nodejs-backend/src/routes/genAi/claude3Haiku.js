@@ -1,11 +1,10 @@
-const API_URL =
-  "https://n6yljp734o67rx5s3ztv7gjiy40htghq.lambda-url.us-west-2.on.aws/";
+const LLM_API_URL = process.env.LLM_CLASS2;
 const axios = require("axios");
 
 async function claude3haiku(request, response) {
   const requestOptions = {
     method: "post",
-    url: API_URL,
+    url: LLM_API_URL,
     data: request.body,
     headers: {
       "Content-Type": "application/json",

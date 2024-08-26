@@ -72,7 +72,7 @@ const AppTopbar = (props) => {
     <div className="layout-topbar">
       <Link to="/project">
         <div className="cursor-pointer min-w-max flex align-items-end">
-          <img src={"assets/logo/cb-logo.svg"} height={30} className="mb-1" />
+          <img src={"/assets/images/acme.png"} height={70} width={100} className="mb-1" />
           {/* <h3
             className="text-red-500"
             style={{ fontFamily: "MarlinGeo", fontWeight: "bolder", margin: 0 }}
@@ -136,7 +136,7 @@ const AppTopbar = (props) => {
       <Menu model={items} popup ref={userMenuRef} id="user-popup-menu" />
       {props.isLoggedIn ? (
         <>
-          <AvatarGroup className="mr-3">
+          {/* <AvatarGroup className="mr-3">
             <Avatar
               image="/assets/images/blocks/avatars/circle/avatar-f-1.png"
               shape="circle"
@@ -157,7 +157,7 @@ const AppTopbar = (props) => {
               image="/assets/images/blocks/avatars/circle/avatar-f-3.png"
               shape="circle"
             />
-          </AvatarGroup>
+          </AvatarGroup> */}
           <Button
             className="p-button-rounded p-button-outlined ml-3"
             style={{ zIndex: 20 }}
