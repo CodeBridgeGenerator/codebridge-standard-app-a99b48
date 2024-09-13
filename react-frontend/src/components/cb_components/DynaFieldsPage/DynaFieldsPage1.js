@@ -6,8 +6,6 @@ import _ from "lodash";
 import entityCreate from "../../../utils/entity";
 import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
-import config from "../../../resources/config.json";
-import standard from "../../../resources/standard.json";
 
 import AreYouSureDialog from "../../common/AreYouSureDialog";
 
@@ -16,6 +14,7 @@ import DynaFieldsEditDialogComponent from "./DynaFieldsEditDialogComponent";
 import DynaFieldsCreateDialogComponent from "./DynaFieldsCreateDialogComponent1";
 import DynaFieldsFakerDialogComponent from "./DynaFieldsFakerDialogComponent";
 import DynaFieldsSeederDialogComponent from "./DynaFieldsSeederDialogComponent";
+import config from "../../../resources/config.json";
 
 const DynaFieldsPage = (props) => {
   const navigate = useNavigate();
@@ -91,18 +90,6 @@ const DynaFieldsPage = (props) => {
           message: error.message || "Failed get Dyna Fields",
         });
       });
-
-    const service = _.find(config.services, { serviceName: "dynaFields" });
-    const fields =
-      service?.schemaList.map((f) => {
-        return {
-          name: f.fieldName,
-          value: f.fieldName,
-          type: f.type,
-          component: f.component,
-        };
-      }) || [];
-    setFields(fields);
   }, [showFakerDialog, showDeleteAllDialog]);
 
   const onClickSaveFilteredfields = (ff) => {
@@ -369,6 +356,7 @@ const mapState = (state) => {
 };
 const mapDispatch = (dispatch) => ({
   alert: (data) => dispatch.toast.alert(data),
+  getSchema: (serviceName) => dispatch.db.getSchema(serviceName),
 });
 
 export default connect(mapState, mapDispatch)(DynaFieldsPage);

@@ -32,6 +32,7 @@ const initState = {
   user: {},
   isLoggedIn: false,
 };
+
 export const auth = {
   state: {
     ...initState,

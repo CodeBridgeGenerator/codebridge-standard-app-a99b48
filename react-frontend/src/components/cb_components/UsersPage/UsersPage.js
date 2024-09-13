@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import client from "../../../services/restClient";
+import axios from "axios";
 import _ from "lodash";
 import entityCreate from "../../../utils/entity";
 import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
-import config from "../../../resources/config.json";
-import standard from "../../../resources/standard.json";
 
 import AreYouSureDialog from "../../common/AreYouSureDialog";
 import UsersDatatable from "./UsersDataTable";
@@ -39,13 +38,20 @@ const UsersPage = (props) => {
   const filename = "users.csv";
 
   useEffect(() => {
-    let service = _.find(config.services, { serviceName: "staffinfo" });
-    if (!service) {
-      service = _.find(standard.services, { serviceName: "staffinfo" });
-    }
-    setSelectedHideFields(
-      service?.schemaList?.map((f, i) => (i > 5 ? f.fieldName : null)),
-    );
+    const _getSchema = async () => {
+      const _schema = await props.getSchema("users");
+      let _fields = _schema.data.map((field, i) => i > 5 && field.field);
+      setSelectedHideFields(_fields);
+      _fields = _schema.data.map((field, i) => {
+        return {
+          name: field.field,
+          value: field.field,
+          type: field?.properties?.type,
+        };
+      });
+      setFields(_fields);
+    };
+    _getSchema();
     if (location?.state?.action === "create") {
       entityCreate(location, setRecord);
       setShowCreateDialog(true);
@@ -53,7 +59,15 @@ const UsersPage = (props) => {
       setShowCreateDialog(true);
     }
     location.state = null;
+    fetchPreferences();
   }, []);
+
+  const fetchPreferences = async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/cache/${props.user._id}`,
+    );
+    console.log(response);
+  };
 
   useEffect(() => {
     //on mount
@@ -73,18 +87,6 @@ const UsersPage = (props) => {
           message: error.message || "Failed get Users",
         });
       });
-
-    const service = _.find(config.services, { serviceName: "users" });
-    const fields =
-      service?.schemaList.map((f) => {
-        return {
-          name: f.fieldName,
-          value: f.fieldName,
-          type: f.type,
-          component: f.component,
-        };
-      }) || [];
-    setFields(fields);
   }, [showFakerDialog, showDeleteAllDialog]);
 
   const onClickSaveFilteredfields = (ff) => {
@@ -351,6 +353,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => ({
   alert: (data) => dispatch.toast.alert(data),
   setOneUser: (id) => dispatch.user.setOneUser(id),
+  getSchema: (serviceName) => dispatch.db.getSchema(serviceName),
 });
 
 export default connect(mapState, mapDispatch)(UsersPage);

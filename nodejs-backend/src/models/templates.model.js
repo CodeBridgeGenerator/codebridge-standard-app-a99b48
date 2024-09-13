@@ -1,6 +1,6 @@
 module.exports = function (app) {
-  const modelName = "templates";
-  const mongooseClient = app.get("mongooseClient");
+  const modelName = 'templates';
+  const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema(
     {
@@ -58,7 +58,7 @@ module.exports = function (app) {
         maxLength: 1000000,
         index: true,
         trim: true,
-      }
+      },
     },
     {
       timestamps: true,

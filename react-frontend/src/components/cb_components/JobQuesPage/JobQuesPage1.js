@@ -6,8 +6,6 @@ import _ from "lodash";
 import entityCreate from "../../../utils/entity";
 import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
-import config from "../../../resources/config.json";
-import standard from "../../../resources/standard.json";
 
 import AreYouSureDialog from "../../common/AreYouSureDialog";
 
@@ -16,6 +14,7 @@ import JobQuesEditDialogComponent from "./JobQuesEditDialogComponent";
 import JobQuesCreateDialogComponent from "./JobQuesCreateDialogComponent";
 import JobQuesFakerDialogComponent from "./JobQuesFakerDialogComponent";
 import JobQuesSeederDialogComponent from "./JobQuesSeederDialogComponent";
+import config from "../../../resources/config.json";
 
 const JobQuesPage = (props) => {
   const navigate = useNavigate();
@@ -90,18 +89,6 @@ const JobQuesPage = (props) => {
           message: error.message || "Failed get Job Ques",
         });
       });
-
-    const service = _.find(config.services, { serviceName: "jobQues" });
-    const fields =
-      service?.schemaList.map((f) => {
-        return {
-          name: f.fieldName,
-          value: f.fieldName,
-          type: f.type,
-          component: f.component,
-        };
-      }) || [];
-    setFields(fields);
   }, [showFakerDialog, showDeleteAllDialog]);
 
   const onClickSaveFilteredfields = (ff) => {
@@ -364,6 +351,7 @@ const mapState = (state) => {
 };
 const mapDispatch = (dispatch) => ({
   alert: (data) => dispatch.toast.alert(data),
+  getSchema: (serviceName) => dispatch.db.getSchema(serviceName),
 });
 
 export default connect(mapState, mapDispatch)(JobQuesPage);

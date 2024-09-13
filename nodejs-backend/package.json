@@ -47,6 +47,7 @@
         "ignore": []
     },
     "dependencies": {
+        "@aws-sdk/client-s3": "^3.637.0",
         "@feathersjs/authentication": "^4.5.11",
         "@feathersjs/authentication-local": "^4.5.11",
         "@feathersjs/authentication-oauth": "^4.5.11",

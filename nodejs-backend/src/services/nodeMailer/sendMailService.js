@@ -1,5 +1,4 @@
-const nodemailer = require("nodemailer");
-const moment = require("moment");
+const nodemailer = require('nodemailer');
 
 // async..await is not allowed in global scope, must use a wrapper
 module.exports = (
@@ -11,7 +10,7 @@ module.exports = (
   html,
   attachments,
 ) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
       name: clientHostname, // the hostname of the client. in our case is the website
@@ -52,15 +51,16 @@ module.exports = (
 
       // console.log(messageObject);
 
-      let info = await transporter.sendMail(messageObject);
+      transporter.sendMail(messageObject).then((info) => {
+        console.log('Message sent: %s', info.messageId);
+        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-      console.log("Message sent: %s", info.messageId);
-      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+        // Preview only available when sending through an Ethereal account
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        resolve({ info, url: nodemailer.getTestMessageUrl(info) });
+        return info;
+      });
 
-      // Preview only available when sending through an Ethereal account
-      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-      resolve({ info, url: nodemailer.getTestMessageUrl(info) });
-      return info;
       // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
     } catch (error) {
       reject(error);

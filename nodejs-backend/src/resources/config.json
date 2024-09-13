@@ -11,42 +11,272 @@
     "disabled": false,
     "type": "database",
     "name": "mongodb",
-    "label": "MongoDB"
+    "label": "MongoDB",
+    "__v": 0,
+    "databaseUrl": "mongodb://127.0.0.1:27017/codebridge-standard-app",
+    "appGenerationTemplates": [],
+    "serviceGenerationTemplates": [],
+    "isHidden": false,
+    "environments": []
   },
   "stack": [
     {
       "appName": "nodejs-backend",
       "environments": [
-        null,
-        null,
-        null,
-        null,
-        null
+        {
+          "type": "dev",
+          "settings": {
+            "url": "http://127.0.0.1:3030",
+            "domain": {
+              "protocol": "http",
+              "host": "127.0.0.1",
+              "port": 3030,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "6660314b639117aa49a99b4a"
+        },
+        {
+          "type": "sit",
+          "settings": {
+            "url": "http://127.0.0.1:3030",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3030,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "6660314b639117aa49a99b4b"
+        },
+        {
+          "type": "uat",
+          "settings": {
+            "url": "http://127.0.0.1:3030",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3030,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "6660314b639117aa49a99b4c"
+        },
+        {
+          "type": "stg",
+          "settings": {
+            "url": "http://127.0.0.1:3030",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3030,
+              "user": "",
+              "password": ""
+            },
+            "debug": false
+          },
+          "_id": "6660314b639117aa49a99b4d"
+        },
+        {
+          "type": "prod",
+          "settings": {
+            "url": "http://127.0.0.1:3030",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3030,
+              "user": "",
+              "password": ""
+            },
+            "debug": false
+          },
+          "_id": "6660314b639117aa49a99b4e"
+        }
       ],
       "pathToLogo": {
         "s": "/assets/applications_logos/nodejs-s.png",
         "l": "/assets/applications_logos/nodejs.png"
       },
+      "disabled": false,
       "type": "backend",
       "name": "nodejs",
-      "label": "Node.js Express Feathers.js"
+      "label": "Node.js Express Feathers.js",
+      "appGenerationTemplates": [
+        {
+          "dbService": "templates",
+          "name": "nodejs-feathers-mongoose-package-json",
+          "repoName": "",
+          "ref": "",
+          "userName": "",
+          "githubRepoLocation": "",
+          "skip": false,
+          "_id": "6660314b639117aa49a99b4f",
+          "codeChanges": []
+        },
+        {
+          "dbService": "templates",
+          "name": "nodejs-feathers-mongoose-mongoose-js",
+          "repoName": "",
+          "ref": "",
+          "userName": "",
+          "githubRepoLocation": "",
+          "skip": false,
+          "_id": "6660314b639117aa49a99b50",
+          "codeChanges": []
+        }
+      ],
+      "serviceGenerationTemplates": [],
+      "schemaGenerationTemplates": [
+        {
+          "dbService": "templates",
+          "name": "nodejs-feathers-mongoose-model-js"
+        }
+      ],
+      "configFileRelativePath": "config/default.json",
+      "skip": true
     },
     {
       "appName": "react-frontend",
       "environments": [
-        null,
-        null,
-        null,
-        null,
-        null
+        {
+          "type": "dev",
+          "settings": {
+            "url": "http://127.0.0.1:3000",
+            "domain": {
+              "protocol": "http",
+              "host": "127.0.0.1",
+              "port": 3000,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "6660314b639117aa49a99b52"
+        },
+        {
+          "type": "sit",
+          "settings": {
+            "url": "",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3000,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "6660314b639117aa49a99b53"
+        },
+        {
+          "type": "uat",
+          "settings": {
+            "url": "",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3000,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "6660314b639117aa49a99b54"
+        },
+        {
+          "type": "stg",
+          "settings": {
+            "url": "",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3000,
+              "user": "",
+              "password": ""
+            },
+            "debug": false
+          },
+          "_id": "6660314b639117aa49a99b55"
+        },
+        {
+          "type": "prod",
+          "settings": {
+            "url": "",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3000,
+              "user": "",
+              "password": ""
+            },
+            "debug": false
+          },
+          "_id": "6660314b639117aa49a99b56"
+        }
       ],
       "pathToLogo": {
         "s": "/assets/applications_logos/react-s.png",
         "l": "/assets/applications_logos/react.png"
       },
+      "disabled": false,
       "type": "frontend",
       "name": "react",
-      "label": "React JavaScript"
+      "label": "React JavaScript",
+      "appGenerationTemplates": [
+        {
+          "dbService": "templates",
+          "name": "cb-react-feathers-template",
+          "repoName": "",
+          "ref": "",
+          "userName": "",
+          "githubRepoLocation": "",
+          "skip": false,
+          "_id": "6660314b639117aa49a99b57",
+          "codeChanges": []
+        }
+      ],
+      "serviceGenerationTemplates": [
+        {
+          "templateLocalFile": "",
+          "destFolder": "",
+          "githubRepoLocation": "",
+          "customFunction": "",
+          "customRelationshipFunction": "",
+          "customSinglePageServiceFunction": "",
+          "customSeederFunction": "",
+          "description": "",
+          "renameFile": {
+            "from": "",
+            "to": ""
+          },
+          "_id": "6660314b639117aa49a99b58",
+          "changes": []
+        },
+        {
+          "templateLocalFile": "",
+          "destFolder": "",
+          "githubRepoLocation": "",
+          "customFunction": "",
+          "customRelationshipFunction": "",
+          "customSinglePageServiceFunction": "",
+          "customSeederFunction": "",
+          "description": "",
+          "renameFile": {
+            "from": "",
+            "to": ""
+          },
+          "_id": "6660314b639117aa49a99b59",
+          "changes": []
+        }
+      ],
+      "schemaGenerationTemplates": [],
+      "skip": true
     }
   ],
   "services": [
@@ -59,9 +289,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "companyId",
@@ -111,9 +339,7 @@
             "refServiceName": "companies",
             "refDatabaseName": "companies",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -237,9 +463,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "name",
@@ -511,9 +735,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "companyId",
@@ -560,9 +782,7 @@
             "refServiceName": "companies",
             "refDatabaseName": "companies",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -948,9 +1168,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "companyId",
@@ -1000,9 +1218,7 @@
             "refServiceName": "companies",
             "refDatabaseName": "companies",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -1314,9 +1530,7 @@
             "refServiceName": "departments",
             "refDatabaseName": "departments",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -1363,9 +1577,7 @@
             "refServiceName": "employees",
             "refDatabaseName": "employees",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "fullname"
-            ]
+            "identifierFieldName": ["fullname"]
           }
         }
       ],
@@ -1426,9 +1638,7 @@
             "refServiceName": "departments",
             "refDatabaseName": "departments",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -1468,9 +1678,7 @@
             "refServiceName": "employees",
             "refDatabaseName": "employees",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         }
       ],
@@ -1531,9 +1739,7 @@
             "refServiceName": "sections",
             "refDatabaseName": "sections",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -1573,9 +1779,7 @@
             "refServiceName": "employees",
             "refDatabaseName": "employees",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         }
       ],
@@ -1597,9 +1801,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "companyId",
@@ -1646,9 +1848,7 @@
             "refServiceName": "companies",
             "refDatabaseName": "companies",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -1722,9 +1922,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "auditing": false,
           "warehousing": false,
           "searchable": false,
@@ -1857,9 +2055,7 @@
             "refServiceName": "dynaLoader",
             "refDatabaseName": "dyna_loader",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -1895,9 +2091,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "auditing": false,
           "warehousing": false,
           "searchable": false,
@@ -1988,9 +2182,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "auditing": false,
           "warehousing": false,
           "searchable": false,
@@ -2036,9 +2228,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "default": "",
           "auditing": false,
           "warehousing": false,
@@ -2085,9 +2275,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "auditing": false,
           "warehousing": false,
           "searchable": false,
@@ -2133,9 +2321,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "default": "",
           "auditing": false,
           "warehousing": false,
@@ -2182,9 +2368,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "default": "",
           "auditing": false,
           "warehousing": false,
@@ -2231,9 +2415,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "default": "",
           "auditing": false,
           "warehousing": false,
@@ -2280,9 +2462,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "default": "",
           "auditing": false,
           "warehousing": false,
@@ -2329,9 +2509,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "default": "",
           "auditing": false,
           "warehousing": false,
@@ -2791,9 +2969,7 @@
             "refServiceName": "companies",
             "refDatabaseName": "companies",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -2840,9 +3016,7 @@
             "refServiceName": "departments",
             "refDatabaseName": "departments",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -2889,9 +3063,7 @@
             "refServiceName": "sections",
             "refDatabaseName": "sections",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -2938,9 +3110,7 @@
             "refServiceName": "positions",
             "refDatabaseName": "positions",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -2987,9 +3157,7 @@
             "refServiceName": "employees",
             "refDatabaseName": "employees",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -3585,9 +3753,7 @@
             "refServiceName": "users",
             "refDatabaseName": "users",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -3634,9 +3800,7 @@
             "refServiceName": "users",
             "refDatabaseName": "users",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -4203,9 +4367,7 @@
             "refServiceName": "dynaLoader",
             "refDatabaseName": "dyna_loader",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -4500,9 +4662,7 @@
             "refServiceName": "templates",
             "refDatabaseName": "templates",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -4753,9 +4913,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "sentDateTime",
@@ -4859,9 +5017,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "auditing": false,
           "warehousing": false,
           "searchable": false,
@@ -5086,9 +5242,7 @@
             "refServiceName": "users",
             "refDatabaseName": "users",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -5223,9 +5377,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "servicePermissionId",
@@ -5271,9 +5423,7 @@
             "refServiceName": "permissionServices",
             "refDatabaseName": "permission_services",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "service"
-            ]
+            "identifierFieldName": ["service"]
           }
         },
         {
@@ -5544,9 +5694,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "service",
@@ -5820,9 +5968,7 @@
             "refServiceName": "profiles",
             "refDatabaseName": "profiles",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -5869,9 +6015,7 @@
             "refServiceName": "roles",
             "refDatabaseName": "roles",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -5918,9 +6062,7 @@
             "refServiceName": "positions",
             "refDatabaseName": "positions",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -5967,9 +6109,7 @@
             "refServiceName": "employees",
             "refDatabaseName": "employees",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -6016,9 +6156,7 @@
             "refServiceName": "users",
             "refDatabaseName": "users",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         }
       ],
@@ -6051,9 +6189,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "roleId",
@@ -6103,9 +6239,7 @@
             "refServiceName": "roles",
             "refDatabaseName": "roles",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -6348,9 +6482,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "name",
@@ -6444,9 +6576,7 @@
             "refServiceName": "users",
             "refDatabaseName": "users",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -6585,9 +6715,7 @@
             "refServiceName": "departments",
             "refDatabaseName": "departments",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -6683,9 +6811,7 @@
             "refServiceName": "sections",
             "refDatabaseName": "sections",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -6781,9 +6907,7 @@
             "refServiceName": "positions",
             "refDatabaseName": "positions",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -6830,9 +6954,7 @@
             "refServiceName": "users",
             "refDatabaseName": "users",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -6879,9 +7001,7 @@
             "refServiceName": "companies",
             "refDatabaseName": "companies",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -6928,9 +7048,7 @@
             "refServiceName": "branches",
             "refDatabaseName": "branches",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -7025,9 +7143,7 @@
             "refServiceName": "userAddresses",
             "refDatabaseName": "user_addresses",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "Street1"
-            ]
+            "identifierFieldName": ["Street1"]
           }
         },
         {
@@ -7074,9 +7190,7 @@
             "refServiceName": "userPhones",
             "refDatabaseName": "user_phones",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "number"
-            ]
+            "identifierFieldName": ["number"]
           }
         }
       ],
@@ -7106,9 +7220,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "name",
@@ -7303,9 +7415,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "departmentId",
@@ -7352,9 +7462,7 @@
             "refServiceName": "departments",
             "refDatabaseName": "departments",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -7521,9 +7629,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "empno",
@@ -10268,9 +10374,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "name",
@@ -10552,9 +10656,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "stack",
@@ -10808,9 +10910,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "userId",
@@ -10857,9 +10957,7 @@
             "refServiceName": "users",
             "refDatabaseName": "users",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -11782,9 +11880,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "auditing": false,
           "warehousing": false,
           "searchable": false,
@@ -11816,9 +11912,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "userId",
@@ -11865,9 +11959,7 @@
             "refServiceName": "users",
             "refDatabaseName": "users",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {
@@ -12171,9 +12263,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "auditing": false,
           "warehousing": false,
           "searchable": false,
@@ -12338,9 +12428,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "ticket",
@@ -12375,9 +12463,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "auditing": false,
           "warehousing": false,
           "searchable": false,
@@ -12423,9 +12509,7 @@
           "reverse": false,
           "morph": false,
           "through": false,
-          "args": [
-            "8"
-          ],
+          "args": ["8"],
           "auditing": false,
           "warehousing": false,
           "searchable": false,
@@ -12713,9 +12797,7 @@
             "refServiceName": "users",
             "refDatabaseName": "users",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              null
-            ]
+            "identifierFieldName": [null]
           }
         },
         {
@@ -12762,9 +12844,7 @@
             "refServiceName": "users",
             "refDatabaseName": "users",
             "relationshipType": "one-to-one",
-            "identifierFieldName": [
-              "name"
-            ]
+            "identifierFieldName": ["name"]
           }
         },
         {

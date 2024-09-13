@@ -1,19 +1,19 @@
-const { Queue, Worker } = require("bullmq");
-const connection = require("../services/redis/config");
-const sendMailService = require("../services/nodeMailer/sendMailService");
+const { Queue, Worker } = require('bullmq');
+const connection = require('../services/redis/config');
+const sendMailService = require('../services/nodeMailer/sendMailService');
 
 // Create and export the job queue
-const mailQues = new Queue("mailQues", { connection });
+const mailQues = new Queue('mailQues', { connection });
 
 const createMailQueWorker = (app) => {
   const worker = new Worker(
-    "mailQues",
+    'mailQues',
     async (job) => {
-      const { id, data } = job;
+      const { data } = job;
       // Add your job processing logic here
       // console.log("data", data);
       const template = await app
-        .service("templates")
+        .service('templates')
         .find({ query: { name: data.templateId } });
 
       if (!template)
@@ -25,15 +25,15 @@ const createMailQueWorker = (app) => {
       // console.log("subject", subject);
       let body = templateContent.body;
       let contentHTML = body;
-      if (data?.data) {
+      if (data.data) {
         Object.entries(data.data).forEach((k) => {
           console.log(k);
           contentHTML = contentHTML.replace(`{{${k[0]}}}`, k[1]);
         });
       }
       app
-        .service("mailQues")
-        .patch(job.data?._id, { jobId: job.id, content: contentHTML });
+        .service('mailQues')
+        .patch(job.data._id, { jobId: job.id, content: contentHTML });
       try {
         // console.log("name",data.name,"from",data.from,"to",data.recipients,"subject",subject,"body",body,"html",contentHTML)
         // console.log(contentHTML);
@@ -55,19 +55,19 @@ const createMailQueWorker = (app) => {
   );
 
   // Event listeners for worker
-  worker.on("completed", (job) => {
+  worker.on('completed', (job) => {
     console.log(`Mail ${job.id} completed successfully`);
     if (job.data) {
       app
-        .service("mailQues")
-        .patch(job.data?._id, { jobId: job.id, end: new Date(), status: true });
+        .service('mailQues')
+        .patch(job.data._id, { jobId: job.id, end: new Date(), status: true });
     }
   });
 
-  worker.on("failed", (job, err) => {
+  worker.on('failed', (job, err) => {
     console.error(`Mail ${job.id} failed with error ${err.message}`);
     if (job.data) {
-      app.service("mailQues").patch(job.data?._id, {
+      app.service('mailQues').patch(job.data._id, {
         jobId: job.id,
         end: new Date(),
         errors: err.message,
@@ -76,13 +76,13 @@ const createMailQueWorker = (app) => {
     }
   });
 
-  const mailQuesService = app.service("mailQues");
+  const mailQuesService = app.service('mailQues');
   mailQuesService.hooks({
     after: {
       create: async (context) => {
         const { result } = context;
-        if (result.recipients?.length > 0)
-          await mailQues.add("mailQues", result);
+        if (result.recipients.length > 0)
+          await mailQues.add('mailQues', result);
         return context;
       },
     },

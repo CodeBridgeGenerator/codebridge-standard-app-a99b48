@@ -17,22 +17,7 @@ const SingleUserInvitesPage = (props) => {
     //on mount
     client
       .service("userInvites")
-      .get(urlParams.singleUserInvitesId, {
-        query: {
-          $populate: [
-            {
-              path: "createdBy",
-              service: "users",
-              select: ["name"],
-            },
-            {
-              path: "updatedBy",
-              service: "users",
-              select: ["name"],
-            },
-          ],
-        },
-      })
+      .get(urlParams.singleUserInvitesId)
       .then((res) => {
         set_entity(res || {});
       })
@@ -78,24 +63,6 @@ const SingleUserInvitesPage = (props) => {
             <div className="col-12 md:col-6 lg:col-3">
               <label className="text-sm text-primary">SendMailCounter</label>
               <p className="m-0 ml-3">{Number(_entity?.sendMailCounter)}</p>
-            </div>
-
-            <div className="col-12">&nbsp;</div>
-            <div className="col-12 md:col-6 lg:col-3">
-              <Tag value="created By:"></Tag>
-              <p className="m-0 ml-3">{_entity?.createdBy?.name}</p>
-            </div>
-            <div className="col-12 md:col-6 lg:col-3">
-              <Tag value="created At:"></Tag>
-              <p className="m-0 ml-3">{moment(_entity?.createdAt).fromNow()}</p>
-            </div>
-            <div className="col-12 md:col-6 lg:col-3">
-              <Tag value="last Updated By:"></Tag>
-              <p className="m-0 ml-3">{_entity?.updatedBy?.name}</p>
-            </div>
-            <div className="col-12 md:col-6 lg:col-3">
-              <Tag value="updated At:"></Tag>
-              <p className="m-0 ml-3">{moment(_entity?.updatedAt).fromNow()}</p>
             </div>
           </div>
         </div>

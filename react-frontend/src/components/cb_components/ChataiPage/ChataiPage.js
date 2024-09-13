@@ -251,6 +251,7 @@ const mapState = (state) => ({
 });
 const mapDispatch = (dispatch) => ({
   alert: (data) => dispatch.toast.alert(data),
+  getSchema: (serviceName) => dispatch.db.getSchema(serviceName),
 });
 
 export default connect(mapState, mapDispatch)(ChataiPage);

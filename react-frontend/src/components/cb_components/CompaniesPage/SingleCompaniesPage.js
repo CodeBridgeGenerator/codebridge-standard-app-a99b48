@@ -38,7 +38,6 @@ const SingleCompaniesPage = (props) => {
               service: "users",
               select: ["name"],
             },
-            "addresses",
           ],
         },
       })
@@ -108,7 +107,7 @@ const SingleCompaniesPage = (props) => {
               <p className="m-0 ml-3">
                 <i
                   id="isdefault"
-                  className={`pi ${_entity?.isdefault ? "pi-check" : "pi-times"}`}
+                  className={`pi ${_entity?.isdefault === true ? "pi-check" : "pi-times"}`}
                 ></i>
               </p>
             </div>

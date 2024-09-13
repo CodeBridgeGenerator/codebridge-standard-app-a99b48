@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import _ from "lodash";
 import client from "../../../services/restClient";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import seederData from "./positions.seeder.json";
+
 const getSchemaValidationErrorsStrings = (errorObj) => {
   let errMsg = [];
   for (const key in errorObj.errors) {
@@ -23,16 +25,25 @@ const PositionsSeederDialogComponent = (props) => {
 
   const onRun = async () => {
     if (!seederData.length) return;
+    const fieldDataList = _.find(services, { serviceName: "positions" });
+    const fieldList = fieldDataList.data[0].schemaList;
+    console.log(fieldList);
     setError("");
     let results = [];
     setLoading(true);
     try {
       for (let i = 0; i < seederData.length; i++) {
         let _data = seederData[i];
+        Object.keys((key) => {
+          const thisField = fieldList.find(
+            (field) => field.fieldName === key.split("_")[0],
+          );
+          console.log(thisField, key);
+        });
         _data["createdBy"] = props.user._id;
         _data["updatedBy"] = props.user._id;
-        const res = await client.service("positions").create(_data);
-        results = [...results, res];
+        // const res = await client.service("positions").create(_data);
+        // results = [...results, res];
       }
       props.onHide();
       props.alert({

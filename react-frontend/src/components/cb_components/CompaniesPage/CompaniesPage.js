@@ -6,8 +6,6 @@ import _ from "lodash";
 import entityCreate from "../../../utils/entity";
 import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
-import config from "../../../resources/config.json";
-import standard from "../../../resources/standard.json";
 
 import AreYouSureDialog from "../../common/AreYouSureDialog";
 import CompaniesDatatable from "./CompaniesDataTable";
@@ -39,13 +37,20 @@ const CompaniesPage = (props) => {
   const filename = "companies.csv";
 
   useEffect(() => {
-    let service = _.find(config.services, { serviceName: "companies" });
-    if (!service) {
-      service = _.find(standard.services, { serviceName: "companies" });
-    }
-    setSelectedHideFields(
-      service?.schemaList?.map((f, i) => (i > 5 ? f.fieldName : null)),
-    );
+    const _getSchema = async () => {
+      const _schema = await props.getSchema("companies");
+      let _fields = _schema.data.map((field, i) => i > 5 && field.field);
+      setSelectedHideFields(_fields);
+      _fields = _schema.data.map((field, i) => {
+        return {
+          name: field.field,
+          value: field.field,
+          type: field?.properties?.type,
+        };
+      });
+      setFields(_fields);
+    };
+    _getSchema();
     if (location?.state?.action === "create") {
       entityCreate(location, setRecord);
       setShowCreateDialog(true);
@@ -90,18 +95,6 @@ const CompaniesPage = (props) => {
           message: error.message || "Failed get Companies",
         });
       });
-
-    const service = _.find(config.services, { serviceName: "companies" });
-    const fields =
-      service?.schemaList.map((f) => {
-        return {
-          name: f.fieldName,
-          value: f.fieldName,
-          type: f.type,
-          component: f.component,
-        };
-      }) || [];
-    setFields(fields);
   }, [showFakerDialog, showDeleteAllDialog]);
 
   const onClickSaveFilteredfields = (ff) => {
@@ -193,7 +186,7 @@ const CompaniesPage = (props) => {
   };
 
   const onRowClick = ({ data }) => {
-    navigate(`/companies/${data._id}`);
+    navigate(`/companies/${data._id}`, { replace: true });
   };
 
   const menuItems = [
@@ -364,6 +357,7 @@ const mapState = (state) => {
 };
 const mapDispatch = (dispatch) => ({
   alert: (data) => dispatch.toast.alert(data),
+  getSchema: (serviceName) => dispatch.db.getSchema(serviceName),
 });
 
 export default connect(mapState, mapDispatch)(CompaniesPage);

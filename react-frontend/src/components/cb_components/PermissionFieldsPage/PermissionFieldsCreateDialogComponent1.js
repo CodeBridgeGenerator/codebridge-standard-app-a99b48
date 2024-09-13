@@ -10,7 +10,7 @@ import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { Checkbox } from "primereact/checkbox";
 import { AutoComplete } from "primereact/autocomplete";
-import config from "../../../resources/config.json";
+
 const allServices = _.get(config, "services").map((s) => {
   return { name: s.displayName, value: s.serviceName };
 });
@@ -174,15 +174,12 @@ const PermissionFieldsCreateDialogComponent = (props) => {
 
   const searchSubItems = (event) => {
     // Timeout to emulate a network connection
-    setTimeout(() => {
+    setTimeout(async () => {
       let _filtered;
-      const service = _.find(config.services, {
-        serviceName: _entity.service.value,
+      const _schema = await props.getSchema(_entity.service.value);
+      const allFields = _schema.map((f) => {
+        return { name: f.field, value: f.field };
       });
-      const allFields = service.schemaList.map((f) => {
-        return { name: f.label, value: f.fieldName };
-      });
-      console.log(service, allFields);
       if (!event.query.trim().length) {
         _filtered = allFields;
       } else {

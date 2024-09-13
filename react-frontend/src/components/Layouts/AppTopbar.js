@@ -3,9 +3,6 @@ import { connect } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
-import { AvatarGroup } from "primereact/avatargroup";
-import { Avatar } from "primereact/avatar";
-import { Tag } from "primereact/tag";
 import client from "../../services/restClient";
 
 const AppTopbar = (props) => {
@@ -68,11 +65,11 @@ const AppTopbar = (props) => {
       //
     }
   };
-  return (
+  return props.isLoggedIn ? (
     <div className="layout-topbar">
       <Link to="/project">
         <div className="cursor-pointer min-w-max flex align-items-end">
-          <img src={"/assets/images/acme.png"} height={70} width={100} className="mb-1" />
+          <img src={"./assets/logo/cb-logo.svg"} height={30} className="mb-1" />
           {/* <h3
             className="text-red-500"
             style={{ fontFamily: "MarlinGeo", fontWeight: "bolder", margin: 0 }}
@@ -135,39 +132,15 @@ const AppTopbar = (props) => {
       </ul>
       <Menu model={items} popup ref={userMenuRef} id="user-popup-menu" />
       {props.isLoggedIn ? (
-        <>
-          {/* <AvatarGroup className="mr-3">
-            <Avatar
-              image="/assets/images/blocks/avatars/circle/avatar-f-1.png"
-              shape="circle"
-            />
-            <Avatar
-              image="/assets/images/blocks/avatars/circle/avatar-f-2.png"
-              shape="circle"
-            />
-            <Avatar
-              image="/assets/images/blocks/avatars/circle/avatar-m-1.png"
-              shape="circle"
-            />
-            <Avatar
-              image="/assets/images/blocks/avatars/circle/avatar-m-2.png"
-              shape="circle"
-            />
-            <Avatar
-              image="/assets/images/blocks/avatars/circle/avatar-f-3.png"
-              shape="circle"
-            />
-          </AvatarGroup> */}
-          <Button
-            className="p-button-rounded p-button-outlined ml-3"
-            style={{ zIndex: 20 }}
-            icon="pi pi-user"
-            label={`Hi ${props.user?.name}`}
-            onClick={showMenu}
-            aria-controls="user-popup-menu"
-            aria-haspopup
-          />
-        </>
+        <Button
+          className="p-button-rounded p-button-outlined ml-3"
+          style={{ zIndex: 20 }}
+          icon="pi pi-user"
+          label={`Hi ${props.user?.name}`}
+          onClick={showMenu}
+          aria-controls="user-popup-menu"
+          aria-haspopup
+        />
       ) : (
         <Button
           label="login"
@@ -176,7 +149,7 @@ const AppTopbar = (props) => {
         />
       )}
     </div>
-  );
+  ) : null;
 };
 
 const mapState = (state) => {

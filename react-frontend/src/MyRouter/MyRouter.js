@@ -5,11 +5,12 @@ import ProtectedRoute from "./ProtectedRoute";
 import NoMatch from "./NoMatch";
 
 import LoginPage from "../components/LoginPage/LoginPage";
-import SignUpPage from "../components/LoginPage/SignUpPage";
-import SignUpByInvitePage from "../components/LoginPage/SignUpByInvitePage";
+import SignUpPage from "../components/LoginPage/signUp/SignUpPage";
 import ResetPage from "../components/LoginPage/ResetPage";
 import Dashboard from "../components/Dashboard/Dashboard";
 import ProjectLayout from "../components/Layouts/ProjectLayout";
+import MaintenancePage from "../components/MaintenancePage";
+import LoginFaqPage from "../components/LoginFaqPage";
 
 import Account from "../components/cb_components/Account/Account";
 import SingleUsersPage from "../components/cb_components/UsersPage/SingleUsersPage";
@@ -91,15 +92,8 @@ import SingleDeployJobsPage from "../components/cb_components/DeployJobsPage/Sin
 import DeployJobProjectLayoutPage from "../components/cb_components/DeployJobsPage/DeployJobProjectLayoutPage";
 import SingleDeployWorkersPage from "../components/cb_components/DeployWorkersPage/SingleDeployWorkersPage";
 import DeployWorkerProjectLayoutPage from "../components/cb_components/DeployWorkersPage/DeployWorkerProjectLayoutPage";
-import SingleTicketsPage from "../components/cb_components/TicketsPage/SingleTicketsPage";
-import TicketProjectLayoutPage from "../components/cb_components/TicketsPage/TicketProjectLayoutPage";
 
-
-import SingleTestetPage from "../components/TestetPage/SingleTestetPage";
-import TestetProjectLayoutPage from "../components/TestetPage/TestetProjectLayoutPage";
 // ~cb-add-import~
-
-const useUserInvite = process.env.REACT_APP_USE_USER_INVITE_SIGNUP;
 
 const MyRouter = (props) => {
   return (
@@ -116,11 +110,9 @@ const MyRouter = (props) => {
         exact
         element={<ResetPage />}
       />
-      <Route
-        path="/signup"
-        exact
-        element={useUserInvite === "true" ? <SignUpByInvitePage /> : <SignUpPage />}
-      />
+      <Route path="/signup" exact element={<SignUpPage />} />
+      <Route path="/maintenance" exact element={<MaintenancePage />} />
+      <Route path="/login-faq" exact element={<LoginFaqPage />} />
 
       <Route element={<ProtectedRoute redirectPath={"/login"} />}>
         <Route path="/project" exact element={<ProjectLayout />} />
@@ -485,15 +477,27 @@ const MyRouter = (props) => {
           element={<UserChangePasswordProjectLayoutPage />}
         />
 
-<Route path="/deployJobs/:singleDeployJobsId" exact element={<SingleDeployJobsPage />} />
-<Route path="/deployJobs" exact element={<DeployJobProjectLayoutPage />} />
-<Route path="/deployWorkers/:singleDeployWorkersId" exact element={<SingleDeployWorkersPage />} />
-<Route path="/deployWorkers" exact element={<DeployWorkerProjectLayoutPage />} />
-<Route path="/tickets/:singleTicketsId" exact element={<SingleTicketsPage />} />
-<Route path="/tickets" exact element={<TicketProjectLayoutPage />} />
+        <Route
+          path="/deployJobs/:singleDeployJobsId"
+          exact
+          element={<SingleDeployJobsPage />}
+        />
+        <Route
+          path="/deployJobs"
+          exact
+          element={<DeployJobProjectLayoutPage />}
+        />
+        <Route
+          path="/deployWorkers/:singleDeployWorkersId"
+          exact
+          element={<SingleDeployWorkersPage />}
+        />
+        <Route
+          path="/deployWorkers"
+          exact
+          element={<DeployWorkerProjectLayoutPage />}
+        />
 
-<Route path="/testet/:singleTestetId" exact element={<SingleTestetPage />} />
-<Route path="/testet" exact element={<TestetProjectLayoutPage />} />
         {/* ~cb-add-protected-route~ */}
       </Route>
       {/* ~cb-add-route~ */}
@@ -508,7 +512,7 @@ const mapState = (state) => {
   return { isLoggedIn };
 };
 const mapDispatch = (dispatch) => ({
-  alert: (data) => dispatch.toast.alert(data),
+  alert: (data) => dispatch.toast.alert(data)
 });
 
 export default connect(mapState, mapDispatch)(MyRouter);

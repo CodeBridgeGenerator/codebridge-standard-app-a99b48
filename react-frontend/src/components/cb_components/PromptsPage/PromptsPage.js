@@ -13,8 +13,6 @@ import PromptsEditDialogComponent from "./PromptsEditDialogComponent";
 import PromptsCreateDialogComponent from "./PromptsCreateDialogComponent";
 import PromptsFakerDialogComponent from "./PromptsFakerDialogComponent";
 import PromptsSeederDialogComponent from "./PromptsSeederDialogComponent";
-import config from "../../../resources/config.json";
-import standard from "../../../resources/standard.json";
 
 const PromptsPage = (props) => {
   const navigate = useNavigate();
@@ -29,15 +27,23 @@ const PromptsPage = (props) => {
   const [showSeederDialog, setShowSeederDialog] = useState(false);
   const [selectedEntityIndex, setSelectedEntityIndex] = useState();
   const urlParams = useParams();
+  const filename = "prompts.csv";
 
   useEffect(() => {
-    let service = _.find(config.services, { serviceName: "prompts" });
-    if (!service) {
-      service = _.find(standard.services, { serviceName: "prompts" });
-    }
-    // setSelectedHideFields(
-    //   service?.schemaList?.map((f, i) => (i > 5 ? f.fieldName : null)),
-    // );
+    const _getSchema = async () => {
+      const _schema = await props.getSchema("prompts");
+      let _fields = _schema.data.map((field, i) => i > 5 && field.field);
+      setSelectedHideFields(_fields);
+      _fields = _schema.data.map((field, i) => {
+        return {
+          name: field.field,
+          value: field.field,
+          type: field?.properties?.type,
+        };
+      });
+      setFields(_fields);
+    };
+    _getSchema();
     if (location?.state?.action === "create") {
       entityCreate(location, setRecord);
       setShowCreateDialog(true);
@@ -279,6 +285,7 @@ const mapState = (state) => ({
 });
 const mapDispatch = (dispatch) => ({
   alert: (data) => dispatch.toast.alert(data),
+  getSchema: (serviceName) => dispatch.db.getSchema(serviceName),
 });
 
 export default connect(mapState, mapDispatch)(PromptsPage);

@@ -82,7 +82,6 @@ const CompaniesDataTable = ({
       icon="pi pi-upload"
       text
       onClick={() => setShowUpload(true)}
-      disabled={!false}
     />
   );
   const paginatorRight = DownloadCSV({ data: items, fileName: "download" });

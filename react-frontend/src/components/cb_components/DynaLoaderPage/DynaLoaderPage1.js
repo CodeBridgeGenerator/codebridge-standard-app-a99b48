@@ -6,8 +6,7 @@ import _ from "lodash";
 import entityCreate from "../../../utils/entity";
 import { Button } from "primereact/button";
 import { SplitButton } from "primereact/splitbutton";
-import config from "../../../resources/config.json";
-import standard from "../../../resources/standard.json";
+
 import AreYouSureDialog from "../../common/AreYouSureDialog";
 import DynaLoaderDatatable from "./DynaLoaderDataTable";
 import DynaLoaderEditDialogComponent from "./DynaLoaderEditDialogComponent1";
@@ -38,13 +37,20 @@ const DynaLoaderPage = (props) => {
   const filename = "dynaLoader.csv";
 
   useEffect(() => {
-    let service = _.find(config.services, { serviceName: "dynaLoader" });
-    if (!service) {
-      service = _.find(standard.services, { serviceName: "dynaLoader" });
-    }
-    setSelectedHideFields(
-      service?.schemaList?.map((f, i) => (i > 5 ? f.fieldName : null)),
-    );
+    const _getSchema = async () => {
+      const _schema = await props.getSchema("dynaLoader");
+      let _fields = _schema.data.map((field, i) => i > 5 && field.field);
+      setSelectedHideFields(_fields);
+      _fields = _schema.data.map((field, i) => {
+        return {
+          name: field.field,
+          value: field.field,
+          type: field?.properties?.type,
+        };
+      });
+      setFields(_fields);
+    };
+    _getSchema();
     if (location?.state?.action === "create") {
       entityCreate(location, setRecord);
       setShowCreateDialog(true);
@@ -87,18 +93,6 @@ const DynaLoaderPage = (props) => {
           message: error.message || "Failed get DynaLoader",
         });
       });
-
-    const service = _.find(config.services, { serviceName: "dynaLoader" });
-    const fields =
-      service?.schemaList.map((f) => {
-        return {
-          name: f.fieldName,
-          value: f.fieldName,
-          type: f.type,
-          component: f.component,
-        };
-      }) || [];
-    setFields(fields);
   }, [showFakerDialog, showDeleteAllDialog]);
 
   const onClickSaveFilteredfields = (ff) => {
@@ -428,6 +422,7 @@ const mapState = (state) => {
 };
 const mapDispatch = (dispatch) => ({
   alert: (data) => dispatch.toast.alert(data),
+  getSchema: (serviceName) => dispatch.db.getSchema(serviceName),
 });
 
 export default connect(mapState, mapDispatch)(DynaLoaderPage);

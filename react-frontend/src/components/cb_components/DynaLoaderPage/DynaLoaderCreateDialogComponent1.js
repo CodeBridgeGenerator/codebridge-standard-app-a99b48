@@ -8,12 +8,14 @@ import { Column } from "primereact/column";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { AutoComplete } from "primereact/autocomplete";
-import config from "../../../resources/config.json";
+
 import standard from "../../../resources/standard.json";
+
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
+import config from "../../../resources/config.json";
 
 const allServices = _.merge(
   _.get(config, "services").map((s) => {

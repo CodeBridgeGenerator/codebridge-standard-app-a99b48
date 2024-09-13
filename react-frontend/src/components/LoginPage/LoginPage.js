@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { InputText } from "primereact/inputtext";
+import { Checkbox } from "primereact/checkbox";
+
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { classNames } from "primereact/utils";
@@ -10,6 +12,12 @@ import FacebookOauth from "./FacebookOauth";
 import GithubOauth from "./GithubOauth";
 import GoogleOauth from "./GoogleOauth";
 import AppleOauth from "./AppleOauth";
+
+import illustration1 from "../../assets/media/login illustration 1.png";
+import illustration2 from "../../assets/media/login illustration 2.png";
+import emailSent from "../../assets/media/email.png";
+import { emailRegex } from "../../utils/regex";
+import AppFooter from "../Layouts/AppFooter";
 
 const LoginPage = (props) => {
   const navigate = useNavigate();
@@ -21,9 +29,10 @@ const LoginPage = (props) => {
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [maskPassword, setMaskPassword] = useState(true);
-  const [showForgotDialog, setForgotDialog] = useState(false);
+  const [showForgotPassword, setForgotPassword] = useState(false);
   const [verificationError, setVerificationError] = useState("");
-
+  const [rememberMe, setRememberMe] = useState(false);
+  const [isSend, setIsSend] = useState(false);
   useEffect(() => {
     if (props.isLoggedIn === true) navigate("/", { replace: true });
   }, [props.isLoggedIn]);
@@ -61,8 +70,7 @@ const LoginPage = (props) => {
 
   const validate = () => {
     let isValid = true;
-    let re = /\S+@\S+\.\S+/;
-    if (!re.test(email)) {
+    if (!emailRegex.test(email)) {
       setEmailError("Please Enter a valid Email address");
       isValid = false;
     }
@@ -76,6 +84,14 @@ const LoginPage = (props) => {
   };
 
   const sendToForgotResetPage = async () => {
+    if (!emailRegex.test(email)) {
+      props.alert({
+        title: "Invalid email",
+        type: "error",
+        message: "Please enter a valid email",
+      });
+      return;
+    }
     setLoading(true);
     const userLoginData = await _getEmail();
     const userLogin = userLoginData?.data[0];
@@ -114,7 +130,7 @@ const LoginPage = (props) => {
             type: "warn",
             message: `Account  ${email} verification under process.`,
           });
-          setForgotDialog(false);
+          setIsSend(true);
         } else {
           if (userCP?.sendEmailCounter > 3) {
             setVerificationError("too many tries, please contact admin");
@@ -128,7 +144,7 @@ const LoginPage = (props) => {
               sendEmailCounter: userCP.sendEmailCounter++,
             };
             await client.service("userChangePassword").create(_data);
-            setForgotDialog(false);
+            setIsSend(true);
           }
         }
         setLoading(false);
@@ -139,124 +155,216 @@ const LoginPage = (props) => {
     }
   };
 
+  const resendEmail = () => {
+    props.alert({
+      title: "Email resent",
+      type: "success",
+      message:
+        "Successfully resend email. Please check your inbox or Junk/Span folder.",
+    });
+  };
+
   return (
-    <div
-      className={classNames(
-        "grid p-fluid flex flex-column align-items-center mt-8",
-        { "h-screen": isLogin },
-      )}
-    >
-      <div className={classNames({ "col-12 lg:col-6 xl:col-4": isLogin })}>
-        <div className="card flex flex-column align-items-center">
-          <div
-            className={classNames("flex flex-column align-items-center", {
-              "grid col-12 xl:col-8 ": isLogin,
-            })}
-          >
-            <h4>Login</h4>
-            <div className="w-full mb-4">
-              <p className="m-0">Email</p>
-              <InputText
-                type="text"
-                placeholder="example@gmail.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={emailError ? "p-invalid" : ""}
-                onKeyDown={onEnter}
-              ></InputText>
-              <small className="p-error">{emailError}</small>
+    <div className="flex flex-col min-h-screen align-items-center justify-content-center background-image">
+      <div className="flex flex-col items-center justify-center flex-1 w-full max-w-[500px]">
+        {!showForgotPassword && !isSend && (
+          <div className="w-full px-3 mx-3 card md:px-7">
+            <div className="my-4 text-4xl font-semibold text-center text-primary">
+              {/* CodeBridge Image */}
+              CodeBridge
             </div>
-            <div className="w-full mb-4">
-              <p className="m-0">Password</p>
-              <span className="p-input-icon-right">
-                <i
-                  className={`pi ${maskPassword ? "pi-eye" : "pi-eye-slash"} cursor-pointer`}
-                  onClick={() => setMaskPassword(!maskPassword)}
-                  title={`${maskPassword ? "Show" : "Hide"} password`}
-                />
+            <div>
+              <div className="w-full mb-4">
+                <p className="mb-1 text-sm">Email</p>
                 <InputText
-                  type={maskPassword ? "password" : "text"}
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className={passwordError ? "p-invalid" : ""}
+                  type="text"
+                  placeholder="Enter your registered email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={classNames(
+                    emailError ? "p-invalid" : "",
+                    "w-full",
+                  )}
                   onKeyDown={onEnter}
-                ></InputText>
-              </span>
-              <small className="p-error">{passwordError}</small>
+                />
+                <small className="p-error">{emailError}</small>
+              </div>
+              <div className="w-full mb-4">
+                <p className="mb-1 text-sm">Password</p>
+                <span className="w-full p-input-icon-right">
+                  <i
+                    className={`pi ${maskPassword ? "pi-eye" : "pi-eye-slash"} cursor-pointer`}
+                    onMouseDown={() => setMaskPassword(false)}
+                    onMouseUp={() => setMaskPassword(true)}
+                    onMouseLeave={() => setMaskPassword(true)}
+                    title={`${maskPassword ? "Show" : "Hide"} password`}
+                  />
+                  <InputText
+                    type={maskPassword ? "password" : "text"}
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className={classNames(
+                      passwordError ? "p-invalid" : "",
+                      "w-full",
+                    )}
+                    onKeyDown={onEnter}
+                  />
+                </span>
+                <small className="p-error">{passwordError}</small>
+              </div>
+              <div className="flex justify-between">
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.checked)}
+                  />
+                  <label htmlFor="rememberMe" className="text-sm">
+                    Remember me
+                  </label>
+                </div>
+                <p
+                  className="text-sm font-semibold cursor-pointer text-primary"
+                  onClick={() => setForgotPassword(true)}
+                >
+                  Forgot your password?
+                </p>
+              </div>
             </div>
-            <div className="w-6 mb-4">
+            <div className="mt-7">
               <Button
-                label="Login"
-                className="p-button-raised p-button-rounded"
+                label="Sign in"
+                className="w-full !rounded-full py-3 text-[16px]"
                 onClick={login}
                 loading={loading}
               ></Button>
-              <Button
-                text
-                className="p-button-secondary"
-                onClick={() => setForgotDialog(true)}
-              >
-                Forgot Password
-              </Button>
             </div>
-            {/* <div className="w-full mb-4">
-                            <div className="flex">
-                                <p className="m-0">Or login with</p>
-                                <hr
-                                    style={{
-                                        width: '60%',
-                                        marginLeft: '5%',
-                                        marginTop: '4%',
-                                        borderTop: '1px solid #000'
-                                    }}
-                                />
-                            </div>
-                            <div className="w-full flex justify-content-center mt-3">
-                                <GoogleOauth props={props} type={'login'} />
-                            </div>
-                            <div className="w-full flex justify-content-center mt-3">
-                                <FacebookOauth props={props} type={'login'} />
-                            </div>
-                            <div className="w-full flex justify-content-center mt-3">
-                                <GithubOauth props={props} type={'login'} />
-                            </div>
-                            <div className="w-full flex justify-content-center mt-3">
-                                <AppleOauth props={props} type={'login'} />
-                            </div>
-                        </div> */}
-            <div className="w-full flex flex-column align-items-center">
-              <div className="w-full flex justify-content-between">
-                <Link to="/signup">Don't have an account?</Link>
+            <div className="mt-4 text-center">
+              <p className="text-sm">
+                Haven't activate your account yet?{" "}
+                <Link
+                  to="/signup"
+                  className="font-semibold cursor-pointer text-primary"
+                >
+                  Set up now
+                </Link>
+              </p>
+            </div>
+            <div className="h-[1px] bg-[#CED4DA] my-5"></div>
+            <div className="flex items-center justify-between">
+              <Link
+                to="/login-faq"
+                className="m-0 text-sm font-semibold cursor-pointer !text-link"
+              >
+                Can't log in?
+              </Link>
+              <p className="m-0 text-sm font-semibold cursor-pointer text-link">
+                Sign in with custom domain
+              </p>
+            </div>
+          </div>
+        )}
+        {showForgotPassword && !isSend && (
+          <div className="w-full px-3 mx-3 card md:px-7">
+            <div className="my-4 text-4xl font-semibold text-center text-primary">
+              {/* CodeBridge Image */}
+              CodeBridge
+            </div>
+            <div className="mt-6 text-center">
+              <h2 className="mb-4 text-2xl font-semibold">
+                Forgot your password?
+              </h2>
+              <p className="text-[14px]">
+                Please enter your registered email and we'll send you
+                instructions to reset your password.
+              </p>
+            </div>
+            <div className="mt-6">
+              <div className="w-full mb-4">
+                <p className="mb-1">Email</p>
+                <InputText
+                  className="w-full"
+                  type="text"
+                  placeholder="Enter your registered email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                ></InputText>
+                <small className="p-error">{verificationError}</small>
+              </div>
+              <div className="mt-6">
+                <Button
+                  label="Send reset instructions"
+                  className="w-full !rounded-full py-3 text-[16px]"
+                  loading={loading}
+                  disabled={!email}
+                  onClick={sendToForgotResetPage}
+                ></Button>
+              </div>
+              <div className="mt-4 text-center">
+                <p
+                  className="font-semibold cursor-pointer text-primary"
+                  onClick={() => setForgotPassword(false)}
+                >
+                  Back to login
+                </p>
               </div>
             </div>
           </div>
-        </div>
+        )}
+        {isSend && (
+          <div className="w-full px-3 mx-3 card md:px-7">
+            <div className="my-4 text-center">
+              <img
+                src={emailSent}
+                alt="emailSent"
+                className="w-[60%] min-w-[150px]"
+              />
+            </div>
+            <div className="text-center">
+              <h2 className="mb-4 text-2xl font-semibold">Check your email</h2>
+              <p className="text-[14px]">
+                We've sent you an email with instructions to reset your
+                password. Check your Junk/Span folder if it doesn't arrive. If
+                you still can't log in, click resend email or contact your
+                administrator.
+              </p>
+            </div>
+            <div className="mt-6">
+              <Button
+                label="Back to login"
+                className="w-full !rounded-full py-3 text-[16px]"
+                loading={loading}
+                disabled={!email}
+                onClick={() => {
+                  setForgotPassword(false);
+                  setIsSend(false);
+                }}
+              ></Button>
+            </div>
+            <div className="mt-4 text-center">
+              <p
+                className="font-semibold cursor-pointer text-primary"
+                onClick={resendEmail}
+              >
+                Resend email
+              </p>
+            </div>
+          </div>
+        )}
       </div>
-      <Dialog
-        header="Forgot Password"
-        visible={showForgotDialog}
-        onHide={() => setForgotDialog(false)}
-      >
-        <div className="w-full mb-4">
-          <p className="m-0">Your Email</p>
-          <InputText
-            type="text"
-            placeholder="example@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></InputText>
-          <small className="p-error">{verificationError}</small>
-        </div>
-        <div className="w-full mb-4 flex justify-content-end">
-          <Button
-            text
-            label="send email link"
-            onClick={sendToForgotResetPage}
-            loading={loading}
-          />
-        </div>
-      </Dialog>
+      <div className="absolute bottom-0 left-0 flex justify-between w-full px-10 py-10 z-[-1]">
+        <img
+          src={illustration1}
+          alt="illustration1"
+          className="w-20rem min-w-[150px]"
+        />
+        <img
+          src={illustration2}
+          alt="illustration2"
+          className="w-20rem min-w-[150px]"
+        />
+      </div>
+      <AppFooter />
     </div>
   );
 };

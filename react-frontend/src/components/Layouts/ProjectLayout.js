@@ -8,7 +8,6 @@ import { Badge } from "primereact/badge";
 import { StyleClass } from "primereact/styleclass";
 import { Ripple } from "primereact/ripple";
 import { TabMenu } from "primereact/tabmenu";
-import { Avatar } from "primereact/avatar";
 import { OverlayPanel } from "primereact/overlaypanel";
 import client from "../../services/restClient";
 import DynamicDashboards from "../Project/Admin/DynamicDashboards";
@@ -52,9 +51,7 @@ import ErrorsPage from "../cb_components/ErrorsPage/ErrorsPage";
 import ErrorsWHPage from "../cb_components/ErrorsWHPage/ErrorsWHPage";
 import UserLoginPage from "../cb_components/UserLoginPage/UserLoginPage1";
 import UserChangePasswordPage from "../cb_components/UserChangePasswordPage/UserChangePasswordPage";
-import TicketsPage from "../cb_components/TicketsPage/TicketsPage";
-
-import TestetPage from "../TestetPage/TestetPage";
+import TestsPage from "../cb_components/TestsPage/TestsPage";
 // ~cb-add-import~
 
 const ProjectLayout = (props) => {
@@ -239,15 +236,8 @@ const ProjectLayout = (props) => {
         return <UserLoginPage />;
       case "userChangePassword":
         return <UserChangePasswordPage />;
-      case "tickets":
-        return <TicketsPage />;
-      case "tickets":
-        return <TicketsPage />;
-      case "testet":
-case "tickets":
-                return <TicketsPage />;
-case "testet":
-                return <TestetPage />;
+      case "tests":
+        return <TestsPage />;
       /* ~cb-add-thurthy~ */
       default:
         return props.children ? props.children : <DynamicDashboards />;
@@ -597,30 +587,6 @@ case "testet":
                   </li>
                 </ul>
               </div>
-              <div className="mt-auto">
-                <hr className="mb-3 mx-2 border-top-1 border-none border-indigo-300" />
-                <a
-                  className="p-ripple m-3 flex align-items-center cursor-pointer p-2 justify-content-center hover:bg-indigo-600 border-round text-300 hover:text-0
-            transition-duration-150 transition-colors"
-                >
-                  <Avatar
-                    image="assets/logo/cb-logo-500.png"
-                    style={{
-                      width: "60px",
-                      height: "30px",
-                      borderTopLeftRadius: "50px",
-                      borderBottomLeftRadius: "50px",
-                      borderTopRightRadius: "50px",
-                      borderBottomRightRadius: "50px",
-                      backgroundColor: "#fff",
-                    }}
-                    size="small"
-                    shape="circle"
-                    alt="avatar-f-1"
-                  />
-                  <Ripple />
-                </a>
-              </div>
             </div>
             <div
               className={classNames(
@@ -670,150 +636,6 @@ case "testet":
                     App Services
                   </div>
                   <ul className="list-none p-0 m-0">
-                    <li
-                      onClick={() => {
-                        setCurrentActiveTab2("tickets");
-                      }}
-                      className={classNames("mb-3 flex align-items-start p-3", {
-                        "bg-yellow-700": props?.currentActiveTab2 === "tickets",
-                      })}
-                      style={{ borderRadius: "12px" }}
-                    >
-                      <i
-                        className="pi pi-user text-xl mr-3 "
-                        style={{
-                          color:
-                            props?.currentActiveTab2 !== "tickets"
-                              ? "black"
-                              : "white",
-                        }}
-                      ></i>
-                      <div className="flex flex-column">
-                        <span
-                          className={classNames({
-                            "text-white":
-                              props?.currentActiveTab2 === "tickets",
-                            "text-black":
-                              props?.currentActiveTab2 !== "tickets",
-                          })}
-                        >
-                          Tickets
-                        </span>
-                        <p
-                          className={classNames("mt-2 mb-0 line-height-3 ", {
-                            "text-yellow-500":
-                              props?.currentActiveTab2 === "tickets",
-                            "text-yellow-700":
-                              props?.currentActiveTab2 !== "tickets",
-                          })}
-                        >
-                          Accumsan sit amet nulla facilisi morbi tempus iaculis.
-                        </p>
-                      </div>
-                    </li>
-                    <li
-                      onClick={() => {
-                        setCurrentActiveTab2("testet");
-                      }}
-                      className={classNames("mb-3 flex align-items-start p-3", {
-                        "bg-yellow-700": props?.currentActiveTab2 === "testet",
-                      })}
-                      style={{ borderRadius: "12px" }}
-                    >
-                      <i
-                        className="pi pi-user text-xl mr-3 "
-                        style={{
-                          color:
-                            props?.currentActiveTab2 !== "testet"
-                              ? "black"
-                              : "white",
-                        }}
-                      ></i>
-                      <div className="flex flex-column">
-                        <span
-                          className={classNames({
-                            "text-white": props?.currentActiveTab2 === "testet",
-                            "text-black": props?.currentActiveTab2 !== "testet",
-                          })}
-                        >
-                          Testet
-                        </span>
-                        <p
-                          className={classNames("mt-2 mb-0 line-height-3 ", {
-                            "text-yellow-500":
-                              props?.currentActiveTab2 === "testet",
-                            "text-yellow-700":
-                              props?.currentActiveTab2 !== "testet",
-                          })}
-                        >
-                          Accumsan sit amet nulla facilisi morbi tempus iaculis.
-                        </p>
-                      </div>
-                    </li>
-<li
-                onClick={() => {
-                  setCurrentActiveTab2("tickets");
-                }}
-                className={classNames("mb-3 flex align-items-start p-3", {
-                  "bg-yellow-700": props?.currentActiveTab2 === "tickets",
-                })}
-                style={{ borderRadius: "12px" }}
-              >
-                <i
-                  className="pi pi-user text-xl mr-3 "
-                  style={{ color: props?.currentActiveTab2 !== "tickets" ? "black" : "white" }}
-                ></i>
-                <div className="flex flex-column">
-                  <span
-                    className={classNames({
-                      "text-white": props?.currentActiveTab2 === "tickets",
-                      "text-black": props?.currentActiveTab2 !== "tickets",
-                    })}
-                  >
-                  Tickets
-                  </span>
-                  <p
-                    className={classNames("mt-2 mb-0 line-height-3 ", {
-                      "text-yellow-500": props?.currentActiveTab2 === "tickets",
-                      "text-yellow-700": props?.currentActiveTab2 !== "tickets",
-                    })}
-                  >
-                    Accumsan sit amet nulla facilisi morbi tempus iaculis.
-                  </p>
-                </div>
-              </li>
-<li
-                onClick={() => {
-                  setCurrentActiveTab2("testet");
-                }}
-                className={classNames("mb-3 flex align-items-start p-3", {
-                  "bg-yellow-700": props?.currentActiveTab2 === "testet",
-                })}
-                style={{ borderRadius: "12px" }}
-              >
-                <i
-                  className="pi pi-user text-xl mr-3 "
-                  style={{ color: props?.currentActiveTab2 !== "testet" ? "black" : "white" }}
-                ></i>
-                <div className="flex flex-column">
-                  <span
-                    className={classNames({
-                      "text-white": props?.currentActiveTab2 === "testet",
-                      "text-black": props?.currentActiveTab2 !== "testet",
-                    })}
-                  >
-                  Testet
-                  </span>
-                  <p
-                    className={classNames("mt-2 mb-0 line-height-3 ", {
-                      "text-yellow-500": props?.currentActiveTab2 === "testet",
-                      "text-yellow-700": props?.currentActiveTab2 !== "testet",
-                    })}
-                  >
-                    Accumsan sit amet nulla facilisi morbi tempus iaculis.
-                  </p>
-                </div>
-              </li>
                     {/* ~cb-add-services-card~ */}
                   </ul>
                 </div>
@@ -2839,28 +2661,6 @@ case "testet":
                 >
                   {/* <CommandMenu className="ml-3" /> */}
                   <span className="block lg:hidden font-medium">Search</span>
-                  <Ripple />
-                </a>
-              </li>
-              <li className="border-top-1 surface-border lg:border-top-none lg:ml-auto">
-                <a
-                  className="p-ripple flex p-3 lg:px-3 lg:py-2 align-items-center hover:surface-100 font-medium border-round cursor-pointer
-            transition-duration-150 transition-colors"
-                >
-                  <img
-                    src="/assets/images/blocks/avatars/circle/avatar-f-1.png"
-                    className="mr-3 lg:mr-0"
-                    style={{ width: "32px", height: "32px" }}
-                    alt="avatar-f-1"
-                  />
-                  <div className="block lg:hidden">
-                    <div className="text-900 font-medium">
-                      Josephine Lillard
-                    </div>
-                    <span className="text-600 font-medium text-sm">
-                      Marketing Specialist
-                    </span>
-                  </div>
                   <Ripple />
                 </a>
               </li>

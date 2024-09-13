@@ -1,13 +1,13 @@
 const LLM_API_URL = process.env.LLM_CLASS3;
-const axios = require("axios");
+const axios = require('axios');
 
 async function claude3sonnet(request, response) {
   const requestOptions = {
-    method: "post",
+    method: 'post',
     url: LLM_API_URL,
     data: request.body,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -16,7 +16,7 @@ async function claude3sonnet(request, response) {
   try {
     responseText = await axios(requestOptions);
   } catch (error) {
-    return response.status(511).send(`Gen AI claude3Opus: ${err.message}`);
+    return response.status(511).send(`Gen AI claude3Opus: ${error.message}`);
   }
 
   return response.status(200).json(responseText.data);

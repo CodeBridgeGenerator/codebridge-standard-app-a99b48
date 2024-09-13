@@ -12,7 +12,6 @@ import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { Checkbox } from "primereact/checkbox";
 import { AutoComplete } from "primereact/autocomplete";
-import config from "../../../resources/config.json";
 
 const getSchemaValidationErrorsStrings = (errorObj) => {
   let errMsg = {};
